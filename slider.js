@@ -72,9 +72,4 @@ class XPSlider{
   }
 }
 
-window.onload = function(){
-  let slider = new XPSlider({className:'.slider'})  
-  slider.init()
-}
-
 
