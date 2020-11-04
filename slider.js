@@ -17,18 +17,23 @@ const dom = new Proxy({}, {
 });
 
 class XPSlider{
-  constructor(className){
-    this.className = className
+  constructor(args){
+    this.className = args.className
+    this.interVal = null
+    this.time = args.time ? args.time : 2000
+    this.currentIndex = 0,
+    this.len = 0
   }
   init(){
     let $el = this.append()
     this.listen($el)
+    this.autoMove()
   }
   append(){
     let dotChild = []
-    let num = document.querySelector(this.className).children[0].children.length
+    this.len = document.querySelector(this.className).children[0].children.length
     let dataIndex = 'data-index'
-    for(let i=0;i < num;i++){
+    for(let i=0;i < this.len;i++){
         let child = dom.div({
             class: i == 0 ? 'dot active' : 'dot',
             [dataIndex]: i
@@ -44,16 +49,31 @@ class XPSlider{
       if(e.target.className.match('dots')){
         return
       }
+      clearInterval(this.interVal)
       let index = parseInt(e.target.getAttribute('data-index'))
-      document.querySelector(`${this.className} .dots .dot.active`).classList.remove('active')
-      e.target.classList.add('active')
-      document.querySelector(this.className).children[0].style.left =  -index * 100 + '%'
+      this.move(index)
+      this.autoMove()
     })
+  }
+  autoMove(){
+    this.interVal = setInterval(()=>{
+      let index = this.currentIndex + 1
+      this.move(index)
+    },this.time)
+  }
+  move(index){
+    if(index > this.len-1){
+      index = 0
+    }
+    document.querySelector(`${this.className} .dots .dot.active`).classList.remove('active')
+    document.querySelectorAll(`${this.className} .dots .dot`)[index].classList.add('active')
+    document.querySelector(this.className).children[0].style.left =  -index * 100 + '%'
+    this.currentIndex = index
   }
 }
 
 window.onload = function(){
-  let slider = new XPSlider('.slider')  
+  let slider = new XPSlider({className:'.slider'})  
   slider.init()
 }
 
