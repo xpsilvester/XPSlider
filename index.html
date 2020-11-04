@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slider</title>
+    <script src="./slider.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    ul,li{
+        list-style: none;
+    }
+    .slider{
+        width: 600px;
+        height: 500px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #d5d5d5;
+    }
+    .slider ul{
+        width: 400%;
+        position: absolute;
+        height: 500px;
+        left: 0%;
+        transition: left 0.5s;
+    }
+    .slider ul li{
+        width: 25%;
+        float: left;
+        height: 500px;
+        text-align: center;
+        line-height: 500px;
+        font-size: 30px;
+    }
+    .slider .dots{
+        overflow: hidden;
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .slider .dots .dot{
+        width: 10px;
+        height: 10px;
+        float: left;
+        margin:0 5px;
+        border: 1px solid #000;
+        border-radius: 100%;
+        background: #fff;
+        cursor: pointer;
+        transition: all 0.5s;
+    }
+    .slider .dots .dot.active{
+        background: #000;
+    }
+</style>
+<body>
+    <div class="slider">
+        <ul>
+            <li>11</li>
+            <li>22</li>
+            <li>33</li>
+            <li>44</li>
+        </ul>
+        <!-- <div class="dots">
+            <div class="dot active" data-index="0"></div>
+            <div class="dot" data-index="1"></div>
+            <div class="dot" data-index="2"></div>
+            <div class="dot" data-index="3"></div>
+        </div> -->
+    </div>
+</body>
+</html>
